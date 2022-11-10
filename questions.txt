@@ -1,0 +1,3 @@
+- look at how i handle the name requiurement of the form
+- why test is not passing for disbaled button
+- why test is failing on sign up form (its not seeing the name field)

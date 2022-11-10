@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .form-control {
+    @apply w-full outline-none px-5 placeholder-[gray] py-3.5 rounded bg-white border-2 border-[#027fff] focus:bg-gray-200;
+  }
+}
