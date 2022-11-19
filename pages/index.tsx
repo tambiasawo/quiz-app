@@ -22,6 +22,7 @@ import Typography from "@mui/material/Typography";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Link from "next/link";
 import Layout from "../components/Layout";
+import useAnswerContext from "../context/answerContext";
 
 const drawerWidth = 240;
 
@@ -33,7 +34,10 @@ const Home = (props: Props) => {
   const { data: session } = useSession();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [showQuiz, setShowQuiz] = React.useState(false);
+  const { theme, userSelectedAnswers, updateUserSelectedAnswers, changeTheme } =
+    useAnswerContext();
 
+  console.log("arr: ", userSelectedAnswers);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -44,6 +48,7 @@ const Home = (props: Props) => {
   return (
     <Layout>
       <Box
+        className={`${theme ? "bg-red-500" : ""}`}
         component="main"
         sx={{
           flexGrow: 1,
@@ -51,6 +56,7 @@ const Home = (props: Props) => {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
+        <button onClick={changeTheme}>Change theme</button>
         <Paper elevation={2} className=" mx-auto md:w-3/4">
           <h1 className="text-2xl font-semibold p-4">Your Profile</h1>
           <div className="p-5 space-y-3">

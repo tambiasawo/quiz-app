@@ -7,10 +7,12 @@ import { Pagination } from "@mui/material";
 import useAnswerContext from "../context/answerContext";
 
 function Quiz() {
+  const MemoizedSingleQuestion = React.memo(SingleQuestion);
   const [page, setPage] = React.useState(1);
   const paginate = require("paginate-array");
   const [allAnswers, setAllAnswers] = React.useState([]);
-  const { theme, userSelectedAnswers } = useAnswerContext();
+  const { theme, changeTheme, userSelectedAnswers, updateUserSelectedAnswers } =
+    useAnswerContext();
 
   const fetchQuestions = async () => {
     const request = await fetch(
@@ -23,16 +25,18 @@ function Quiz() {
   const pageChangeHandler = (e: React.ChangeEvent<unknown>, page: number) => {
     setPage(page);
   };
+
   const handleSelectedAnswer = (
     event: React.SyntheticEvent<Element, Event>
   ) => {
     console.log("word");
     const clickedAnswer = (event.target as HTMLInputElement).value;
-    console.log({ clickedAnswer });
-    userSelectedAnswers.push(clickedAnswer);
+    updateUserSelectedAnswers(clickedAnswer);
   };
 
-  console.log("quiz: ", userSelectedAnswers);
+  console.log({ theme });
+  console.log({ userSelectedAnswers });
+
   const {
     data: questions,
     isLoading,
@@ -53,7 +57,8 @@ function Quiz() {
   console.log({ getAllCorrectAnswers });
   return (
     <Layout>
-      <div className="w-full">
+      <div className={`w-full ${theme ? "bg-red-500" : ""}`}>
+        <button onClick={changeTheme}>Change theme</button>
         <div className=" ml-14 mt-14 flex flex-col space-y-10">
           <div className="flex flex-col space-y-5">
             {paginateCollection.data?.map(
@@ -77,7 +82,7 @@ function Quiz() {
                     break;
                 }
                 return (
-                  <SingleQuestion
+                  <MemoizedSingleQuestion
                     key={question.id}
                     question={question}
                     position={position}

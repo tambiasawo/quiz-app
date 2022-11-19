@@ -1,4 +1,5 @@
-export default function shuffle(array) {
+import React, { useCallback } from "react";
+export const shuffle = (array) => {
   let currentIndex = array.length,
     randomIndex;
 
@@ -16,4 +17,4 @@ export default function shuffle(array) {
   }
 
   return array;
-}
+};
