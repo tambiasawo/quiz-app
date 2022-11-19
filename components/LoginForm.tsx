@@ -1,11 +1,14 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 interface Props {
   signUp: boolean;
 }
 function LoginForm({ signUp }: Props) {
+  const router = useRouter();
   const formik = useFormik({
     initialValues: { email: "", password: "", name: "" },
     validationSchema: Yup.object({
@@ -21,8 +24,38 @@ function LoginForm({ signUp }: Props) {
             .max(15, "Enter a valid  name"),
     }),
 
-    onSubmit: () => {
-      alert(JSON.stringify(formik.values, null, 2));
+    onSubmit: async () => {
+      if (signUp) {
+        const options = {
+          name: formik.values.name,
+          email: formik.values.email,
+          password: formik.values.password,
+        };
+        const response = await fetch("http://localhost:3000/api/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(options),
+        }).then((res) =>
+          res.json().then((data) => {
+            if (data) return data;
+          })
+        );
+        console.log(response);
+        if (response) {
+          router.push("/");
+        }
+      } else {
+        const status = await signIn("credentials", {
+          redirect: false,
+          email: formik.values.email,
+          password: formik.values.password,
+          callbackUrl: "/",
+        });
+        if (status?.ok) {
+          router.push(status?.url || "/");
+        }
+        console.log(status);
+      }
     },
   });
 
@@ -36,6 +69,10 @@ function LoginForm({ signUp }: Props) {
       {...formik.getFieldProps("name")}
     />
   );
+
+  const handleSignIn = async () => {
+    signIn("google", { callbackUrl: "http://localhost:3000" });
+  };
   /*   {
     formik.errors.name && formik.touched.name && (
       <p className="text-red-400 font-light text-sm ">
@@ -47,7 +84,7 @@ function LoginForm({ signUp }: Props) {
     <div>
       <form
         onSubmit={formik.handleSubmit}
-        className="relative mt-24 py-10 px-6 space-y-3 md:mt-0 md:max-w-md md:px-14"
+        className="relative py-10 px-6 space-y-3 md:mt-0 md:max-w-md md:px-14"
       >
         {signUp && NameField}
 
@@ -59,11 +96,7 @@ function LoginForm({ signUp }: Props) {
           placeholder="Email Address"
           {...formik.getFieldProps("email")}
         />
-        {/*  {formik.errors.email && formik.touched.email && (
-          <p className="text-red-400 font-light text-sm ">
-            Please enter a valid email address
-          </p>
-        )} */}
+
         <input
           className={` form-control ${
             formik.errors.password && formik.touched.password
@@ -83,6 +116,15 @@ function LoginForm({ signUp }: Props) {
         >
           {signUp ? "Sign Up" : "Sign In"}
         </button>
+        {!signUp && (
+          <button
+            type="button"
+            onClick={handleSignIn}
+            className="py-3 w-full rounded bg-[#7a7d81] disabled:bg-gray-300"
+          >
+            Sign In with Google
+          </button>
+        )}
       </form>
     </div>
   );
