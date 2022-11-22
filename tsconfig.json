@@ -20,7 +20,8 @@
     "**/*.ts",
     "**/*.tsx",
     "database/conn.js",
-    "pages/api/auth/signup.js"
+    "pages/api/auth/signup.js",
+    "utils/ThemeSwitch.js"
   ],
   "exclude": ["node_modules"]
 }

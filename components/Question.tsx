@@ -15,37 +15,21 @@ interface Props {
   onChangeAnswerHandler: (event: React.SyntheticEvent<Element, Event>) => void;
 }
 
-/* const shuffle = (array) => {
-  let currentIndex = array.length,
-    randomIndex;
-
-  // While there remain elements to shuffle.
-  while (currentIndex != 0) {
-    // Pick a remaining element.
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
-  }
-
-  return array;
-}; */
-
 const Question = ({ question, position, onChangeAnswerHandler }: Props) => {
-  const answers = shuffle([
-    ...question.incorrectAnswers,
-    question.correctAnswer,
-  ]);
+  const [answers, setAnswers] = React.useState<any>([]);
+  const { theme } = useAnswerContext();
+  React.useEffect(() => {
+    setAnswers(shuffle([...question.incorrectAnswers, question.correctAnswer]));
+  }, []);
+
   return (
     <div>
-      <span>{position}. </span>
       <FormControl>
         <FormLabel id="demo-controlled-radio-buttons-group">
-          {question?.question}
+          <h4 className={` ${theme ? "bg-[#121212] !text-white" : ""}`}>
+            {" "}
+            <span>{position}. </span> {question?.question}{" "}
+          </h4>
         </FormLabel>
         <RadioGroup
           aria-labelledby="demo-error-radios"

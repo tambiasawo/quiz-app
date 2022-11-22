@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 export const shuffle = (array) => {
   let currentIndex = array.length,
     randomIndex;

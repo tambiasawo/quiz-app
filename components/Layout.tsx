@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, FormControlLabel, Switch } from "@mui/material";
 import TabPanel from "@mui/lab/TabPanel";
 import React, { ReactFragment } from "react";
 import Head from "next/head";
@@ -21,7 +21,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Link from "next/link";
-
+import useAnswerContext from "../context/answerContext";
+import NightlightIcon from "@mui/icons-material/Nightlight";
+import LightModeIcon from "@mui/icons-material/LightMode";
 const drawerWidth = 240;
 
 interface Props {
@@ -31,13 +33,14 @@ interface Props {
 const Layout = ({ children }: Props) => {
   const { data: session } = useSession();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [showQuiz, setShowQuiz] = React.useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
   const handleSignOut = async () => {
     signOut();
   };
+
+  const { changeTheme, theme } = useAnswerContext();
 
   const drawer = (
     <div className="bg-[#027fff] h-full text-white">
@@ -107,7 +110,7 @@ const Layout = ({ children }: Props) => {
                   <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" noWrap component="div">
-                  Responsive drawer
+                  Quiz App
                 </Typography>
               </Toolbar>
             </AppBar>
@@ -148,6 +151,16 @@ const Layout = ({ children }: Props) => {
                 {drawer}
               </Drawer>
             </Box>
+            <div className="absolute top-0 right-5">
+              <LightModeIcon />
+
+              <Switch
+                checked={theme}
+                onChange={changeTheme}
+                inputProps={{ "aria-label": "controlled" }}
+              />
+              <NightlightIcon />
+            </div>
             {children}
           </Box>
         ) : (

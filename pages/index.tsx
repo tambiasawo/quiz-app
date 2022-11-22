@@ -1,25 +1,9 @@
-import { Box, Paper, Tab } from "@mui/material";
+import { Box, FormControlLabel, Paper, Tab } from "@mui/material";
 import TabPanel from "@mui/lab/TabPanel";
 import React from "react";
 import Head from "next/head";
 import { useSession, signOut, getSession } from "next-auth/react";
-import AppBar from "@mui/material/AppBar";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import HomeIcon from "@mui/icons-material/Home";
-import AssessmentIcon from "@mui/icons-material/Assessment";
-import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import MaterialUISwitch from "../utils/ThemeSwitch3";
 import Link from "next/link";
 import Layout from "../components/Layout";
 import useAnswerContext from "../context/answerContext";
@@ -34,10 +18,7 @@ const Home = (props: Props) => {
   const { data: session } = useSession();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [showQuiz, setShowQuiz] = React.useState(false);
-  const { theme, userSelectedAnswers, updateUserSelectedAnswers, changeTheme } =
-    useAnswerContext();
-
-  console.log("arr: ", userSelectedAnswers);
+  const { theme } = useAnswerContext();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -48,7 +29,7 @@ const Home = (props: Props) => {
   return (
     <Layout>
       <Box
-        className={`${theme ? "bg-red-500" : ""}`}
+        className={`${theme ? "bg-[#121212]" : ""}`}
         component="main"
         sx={{
           flexGrow: 1,
@@ -56,7 +37,6 @@ const Home = (props: Props) => {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        <button onClick={changeTheme}>Change theme</button>
         <Paper elevation={2} className=" mx-auto md:w-3/4">
           <h1 className="text-2xl font-semibold p-4">Your Profile</h1>
           <div className="p-5 space-y-3">
@@ -69,11 +49,6 @@ const Home = (props: Props) => {
             </button>
           </div>
         </Paper>
-        {/* {showQuiz && (
-          <Paper>
-            <div>quizzes</div>
-          </Paper>
-        )} */}
       </Box>
     </Layout>
   );
@@ -87,7 +62,7 @@ export default Home;
 
 export const getServerSideProps = async ({ req }: any) => {
   const session = await getSession({ req });
-
+  console.log({ session });
   if (!session) {
     return {
       redirect: {

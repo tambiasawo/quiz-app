@@ -40,7 +40,6 @@ function LoginForm({ signUp }: Props) {
             if (data) return data;
           })
         );
-        console.log(response);
         if (response) {
           router.push("/");
         }
