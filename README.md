@@ -1,6 +1,6 @@
 # Quiz App
 
-## Brief Overview
+### Brief Overview
 This full stack app tests your knowledge in 5 different categories namely: 
 - Sports,
 - Science,
@@ -12,7 +12,7 @@ At the end of each test, you can see your score. To see your previous results, y
 
 To see the highest performer in each category, navigate to the dashboard and see it live
 
-## Technologies Used
+### Technologies Used
 - React
 - Node.js
 - TailwindCSS
@@ -20,7 +20,7 @@ To see the highest performer in each category, navigate to the dashboard and see
 - Tanstack React Query
 
 
-## Getting Started
+### Getting Started
 
 - Clone this git repo
 - run ```npm install```
