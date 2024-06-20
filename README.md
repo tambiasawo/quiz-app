@@ -1,27 +1,29 @@
-# Next.js + Tailwind CSS Example
+# Brief Overview
+This full stack app tests your knowledge in 5 different categories namely: 
+- Sports,
+- Science,
+- Entertainment: Music,
+- Entertainment: Movies and
+- Books.
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+At the end of each test, you can see your score. To see your previous results, you can head over to the Results tab and see all your past results, and your performance on each question.
 
-## Deploy your own
+To see the highest performer in each category, navigate to the dashboard and see it live
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+# Technologies Used
+- React
+- Node.js
+- TailwindCSS
+- React Router
+- Tanstack React Query
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
 
-## How to use
+# Getting Started
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-```
-
-```bash
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
-
-```bash
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+- Clone this git repo
+- run ```npm install```
+- create and populate your .env file 
+-  run ``` cd client && npm install```
+-  run ```npm run dev```
+-  Come out of the client folder and start the server by running ``` npm run dev``` in the parent folder
+-  Your app should have started now 
